@@ -28,7 +28,6 @@ def showDictStruct(d):
 # reddit = praw.Reddit(client_id='XXXXXX', client_secret='YYYYY', user_agent='ZZZZZ')
 def  scrapper(query_terms,limit):
 
-
     reddit = praw.Reddit(client_id='lmT3q2vI0dfLlYW2M-5-sQ', client_secret='9c-0mjK4btAqm2mRIxcPCCCmTbucnQ', user_agent='projet_lyon')
     # hot_posts = reddit.subreddit(query_terms).hot(limit=limit)#.top("all", limit=limit)#
     # /subr =  reddit.subreddit(redditSubject)
