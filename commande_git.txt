@@ -11,4 +11,9 @@ git remote add origin https://github.com/madoutk07/PythonProject.git
 git branch -M main
 git push -u origin main
 
-Git pull --rebase origin 
+Git pull --rebase origin
+
+py -m pip install SomePackage
+
+py -m pip freeze > requirements.txt
+py -m pip install -r requirements.txt

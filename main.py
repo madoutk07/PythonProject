@@ -151,8 +151,8 @@ print(type(corpusi))
 # corpusi.show(tri="abc")
 # print(repr(corpusi))
 
-a= corpusi.construire_vocabulaire()
-print(a)
+# a= corpusi.construire_vocabulaire()
+# print(a)
 
 # a = corpusi.concorde("iphone",100)
 
