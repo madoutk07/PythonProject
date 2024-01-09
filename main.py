@@ -8,7 +8,7 @@ def main():
     Sauvegarde le corpus dans un fichier pickle.
     Charge le corpus à partir du fichier pickle et l'affiche.
     """
-    corpusi = scrapper(["Iphone"], 2)
+    corpusi = scrapper(["Iphone"], 100)
     corpusi.save("Data/corpus.pkl")
 
     del corpusi

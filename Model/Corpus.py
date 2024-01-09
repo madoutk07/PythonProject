@@ -5,7 +5,7 @@ import pandas as pd
 import re
 from Model.patterns import singleton
 import pandas as pd
-
+from unidecode import unidecode
 
 # @singleton
 class Corpus:
@@ -22,7 +22,7 @@ class Corpus:
         naut : Nombre total d'auteurs dans le corpus.
     """
 
-    passages = ""
+
 
     def __init__(self, nom):
         """
@@ -36,6 +36,8 @@ class Corpus:
         self.id2doc = {}
         self.ndoc = 0
         self.naut = 0
+        self.passages = ""
+        self.freq = None
 
     def add_Author(self, auteur):
         nom =auteur.name
@@ -105,109 +107,121 @@ class Corpus:
 
 
 
-    # def construireChaine(self):
-    #     """
-    #     Construit une chaîne de caractères contenant tous les passages des documents du corpus.
+    def construireChaine(self):
+        """
+        Construit une chaîne de caractères contenant tous les passages des documents du corpus.
 
-    #     Returns:
-    #         str: Chaîne de caractères contenant tous les passages des documents du corpus.
-    #     """
-    #     if self.passages == "":
-    #         for doc in self.id2doc.values():
-    #             self.passages = self.passages + doc.texte
-    #     return self.passages
+        Returns:
+            str: Chaîne de caractères contenant tous les passages des documents du corpus.
+        """
+        if self.passages == "":
+            self.passages = " ".join([docu.texte for docu in self.id2doc.values()])
+        return self.passages
 
-    # def search(self, aTrouver):
-    #     """
-    #     Recherche un motif dans la chaîne de caractères du corpus.
+    def search(self, aTrouver):
+        """
+        Recherche un motif dans la chaîne de caractères du corpus.
 
-    #     Args:
-    #         aTrouver (str): Motif à rechercher.
+        Args:
+            aTrouver (str): Motif à rechercher.
 
-    #     Returns:
-    #         re.MatchIterator: Itérateur contenant les correspondances trouvées.
-    #     """
-    #     s = re.finditer(aTrouver, self.construireChaine())
-    #     return s
+        Returns:
+            re.MatchIterator: Itérateur contenant les correspondances trouvées.
+        """
+        s = re.finditer(aTrouver, self.construireChaine())
+        return s
 
-    # def concorde(self, aTrouver, nb):
-    #     """
-    #     Renvoie un DataFrame contenant les contextes gauche, le motif trouvé et les contextes droits pour un motif donné.
+    def concorde(self, aTrouver, nb):
+        """
+        Renvoie un DataFrame contenant les contextes gauche, le motif trouvé et les contextes droits pour un motif donné.
 
-    #     Args:
-    #         aTrouver (str): Motif à rechercher.
-    #         nb (int): Nombre de caractères à inclure dans les contextes gauche et droit.
+        Args:
+            aTrouver (str): Motif à rechercher.
+            nb (int): Nombre de caractères à inclure dans les contextes gauche et droit.
 
-    #     Returns:
-    #         pd.DataFrame: DataFrame contenant les contextes gauche, le motif trouvé et les contextes droits.
-    #     """
-    #     s = self.search(aTrouver)
-    #     contexteG = []
-    #     contexteC = []
-    #     contexteD = []
-    #     for a in s:
-    #         spn = a.span()
-    #         contexteG.append(self.passages[spn[0] - nb:spn[0]])
-    #         contexteC.append(aTrouver)
-    #         contexteD.append(self.passages[spn[1]:spn[1] + nb])
-    #     df = pd.DataFrame({'contexte gauche': contexteG, 'motif trouve': contexteC, 'contexte droit': contexteD})
+        Returns:
+            pd.DataFrame: DataFrame contenant les contextes gauche, le motif trouvé et les contextes droits.
+        """
+        s = self.search(aTrouver)
+        contexteG = []
+        contexteC = []
+        contexteD = []
+        for a in s:
+            spn = a.span()
+            contexteG.append(self.passages[spn[0] - nb:spn[0]])
+            contexteC.append(aTrouver)
+            contexteD.append(self.passages[spn[1]:spn[1] + nb])
+        df = pd.DataFrame({'contexte gauche': contexteG, 'motif trouve': contexteC, 'contexte droit': contexteD})
 
-    #     return df
+        return df
 
-    # def nettoyer_texte(self, chaine):
-    #     """
-    #     Nettoie une chaîne de caractères en la mettant en minuscules, en supprimant les caractères spéciaux, les chiffres, les tabulations et les retours à la ligne.
+    def nettoyer_texte(chaine):
+        """
+        Nettoie une chaîne de caractères en la mettant en minuscules, en supprimant les caractères spéciaux, les chiffres, les tabulations et les retours à la ligne.
 
-    #     Args:
-    #         chaine (str): Chaîne de caractères à nettoyer.
+        Args:
+            chaine (str): Chaîne de caractères à nettoyer.
 
-    #     Returns:
-    #         str: Chaîne de caractères nettoyée.
-    #     """
-    #     chaine = chaine.lower()
-    #     chaine = re.sub(r'\n', "", chaine)
-    #     chaine = re.sub(r'\t', "", chaine)
-    #     chaine = re.sub(r'[^\w\s]', "", chaine)
-    #     chaine = re.sub(r'\d', "", chaine)
+        Returns:
+            str: Chaîne de caractères nettoyée.
+        """
 
-    #     return chaine
+        # convertit tous les caractères de la chaîne  en minuscules
+        chaine = chaine.lower()
 
-    # def count_word_occurrences(self):
-    #     """
-    #     Compte le nombre d'occurrences de chaque mot dans le corpus.
+        # substituer toutes les occurrences de caractères de saut de ligne (\n) et (\t) par ""
+        chaine = re.sub(r'\n', " ", chaine)
+        chaine = re.sub(r'\t', " ", chaine)
 
-    #     Returns:
-    #         pd.DataFrame: Tableau de fréquence contenant les mots et leur compte.
-    #     """
-    #     vocabulary = self.construire_dictionnaire()
-    #     word_counts = {}
+        # supprimer tous les caractères non alphanumériques
+        chaine = re.sub(r'[^\w\s]', " ", chaine)
+        # supprime tous les chiffres  de la chaîne
+        chaine = re.sub(r'\d', " ", chaine)
 
-    #     for doc in self.id2doc.values():
-    #         words = self.nettoyer_texte(doc.texte)
-    #         words = re.split(' ', words)
-    #         for word in words:
-    #             if word in vocabulary:
-    #                 if word in word_counts:
-    #                     word_counts[word] += 1
-    #                 else:
-    #                     word_counts[word] = 1
+        # caractères accentués en caractères non accentués
+        chaine = unidecode(chaine)
 
-    #     freq_table = pd.DataFrame({'Word': list(word_counts.keys()), 'Count': list(word_counts.values())})
-    #     return freq_table
-
-    # def construire_dictionnaire(self):
-    #     """
-    #     Construit un dictionnaire de mots à partir des documents du corpus.
-
-    #     Returns:
-    #         set: Dictionnaire de mots.
-    #     """
-    #     vocabulary = set()
-    #     compteur = 0
-    #     for doc in self.id2doc.values():
-    #         words = self.nettoyer_texte(doc.texte)
-    #         words = re.split(' ', words)
-    #         vocabulary.update(words)
-    #     return vocabulary
+        return chaine
 
 
+    def construire_vocabulaire(self):
+        """
+        Construit un vocabulaire à partir du texte de chaque document.
+
+        Returns:
+            dict: Dictionnaire représentant le vocabulaire.
+        """
+        # Initialiser le vocabulaire
+        voc = set()
+        for cle, document in self.id2doc.items():
+            # cle = document.titre
+            mots = Corpus.nettoyer_texte(document.texte)
+            mots  = mots.split(' ')
+            mots = [mot for mot in mots if mot != '']
+            voc.update(mots)
+        return voc
+
+    def stats(self):
+
+        vocabulaire = self.construire_vocabulaire()
+        frequences_mot = {mot: 0 for mot in vocabulaire}
+        frequences_document = {mot: 0 for mot in vocabulaire}
+
+        for cle, document in self.id2doc.items():
+            tempdoc = [True for _ in vocabulaire]
+            mots = Corpus.nettoyer_texte(document.texte)
+            mots = mots.split(' ')
+            for mot in mots:
+                if mot in vocabulaire:
+
+                    indexMot = list(vocabulaire).index(mot)
+
+                    if tempdoc[indexMot]:
+                        frequences_document[mot] += 1
+                        tempdoc[indexMot] = False
+
+                    if mot in frequences_mot:
+                        frequences_mot[mot] += 1
+
+        final = [{'Mot': mot, 'Frequence_mot': frequences_mot[mot], 'Frequence_document': frequences_document[mot]} for mot in vocabulaire]
+        self.freq = pd.DataFrame(final)
