@@ -13,7 +13,22 @@ git push -u origin main
 
 Git pull --rebase origin
 
-py -m pip install SomePackage
 
-py -m pip freeze > requirements.txt
-py -m pip install -r requirements.txt
+
+creation  env virtuel:
+
+python -m venv venv
+
+venv\Scripts\activate
+
+
+python -m pip install SomePackage
+
+python -m pip freeze > requirements.txt
+python -m pip install -r requirements.txt
+
+
+pip install -r requirements.txt
+
+doxygen -g
+doxygen Doxyfile

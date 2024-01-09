@@ -1,25 +1,21 @@
-from Model.Classes import ArxivDocument, RedditDocument
+from Model.Document import ArxivDocument, RedditDocument
+
 
 def singleton(cls):
     """
-   design pattern Singleton.
+    Décorateur pour créer une classe singleton.
+
     Args:
         cls: La classe à décorer.
+
     Returns:
-        La classe décorée.
-    Raises:
-        Exception: Si une instance de la classe existe déjà.
+        La classe décorée en tant que singleton.
     """
-    instances = {}
+    instances = [None]
     def wrapper(*args, **kwargs):
-        if cls not in instances:
-            try:
-                instances[cls] = cls(*args, **kwargs)
-                return instances[cls]
-            except Exception:
-                raise("bug")
-        else:
-            raise Exception("une instance de la classe existe déjà")
+        if instances[0] is None:
+            instances[0] = cls(*args, **kwargs)
+        return instances[0]
     return wrapper
 
 
@@ -48,7 +44,6 @@ class DocumentGenerator:
         Raises:
             AssertionError: Si aucun paramètre optionnel n'est fourni.
         """
-
         if nbcommentaires is not None:
             return RedditDocument(titre, auteur, date, url, texte, nbcommentaires)
         if co_auteurs is not None:
