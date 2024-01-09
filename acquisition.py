@@ -126,6 +126,7 @@ def  scrapper(query_terms,limit):
                     authors[co_auteur].add(doc.titre)
         except :
             # print('bug')
+            continue
             pass
     # Construction du corpus à partir des documents et des auteurs
     corpus = Corpus("Mon corpus")
