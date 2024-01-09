@@ -4,10 +4,11 @@ from acquisition import scrapper
 
 a = Corpus.load("Data/corpus.pkl")
 voc = a.construire_vocabulaire()
-a.calculer_occurences()
+# a.calculer_occurences()
+a.construire_mat_TF()
 # # print(type(a))
 # print(a.concorde("Iphone", 15))
-print(a.freq)
+print(a.mat_TF)
 # print(a.id2doc[0].texte)
 # texte = "Bonjour, je m'appellé Jean2."
 # print(texte)

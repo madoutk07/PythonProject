@@ -6,6 +6,7 @@ import re
 from Model.patterns import singleton
 import pandas as pd
 from unidecode import unidecode
+import  scipy as sc
 
 # @singleton
 class Corpus:
@@ -38,6 +39,9 @@ class Corpus:
         self.naut = 0
         self.passages = ""
         self.freq = None
+        self.vocab = {}
+        self.mat_TF = None
+
 
     def add_Author(self, auteur):
         nom =auteur.name
@@ -225,3 +229,37 @@ class Corpus:
 
         final = [{'Mot': mot, 'Frequence_mot': frequences_mot[mot], 'Frequence_document': frequences_document[mot]} for mot in vocabulaire]
         self.freq = pd.DataFrame(final)
+
+
+    def construire_dictionnaire(self):
+        self.stats()
+        vocabulaire = self.construire_vocabulaire()
+        for index, mot in enumerate(sorted(vocabulaire)):
+            self.vocab[mot] = {
+                'identifiant': index,
+                'nombre_occurrences': self.freq.loc[self.freq['Mot'] == mot, 'Frequence_mot'].values[0],
+            }
+
+    def construire_mat_TF(self):
+        """
+        Construit une matrice de termes-fréquences à partir du texte de chaque document.
+
+        Returns:
+            scipy.sparse.csr_matrix: Matrice de termes-fréquences.
+        """
+        if self.vocab == {}:
+            self.construire_dictionnaire()
+
+
+        mat = sc.sparse.csr_matrix((self.ndoc, len(self.vocab)))
+
+        for cle, document in self.id2doc.items():
+
+            mots = Corpus.nettoyer_texte(document.texte)
+            mots = mots.split(' ')
+            for mot in mots:
+                if mot in self.vocab:
+                    mat[cle, self.vocab[mot]['identifiant']] += 1
+
+        self.mat_TF = mat
+        # return self.mat_TF
