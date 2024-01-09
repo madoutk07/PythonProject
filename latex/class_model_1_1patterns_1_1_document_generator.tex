@@ -1,0 +1,43 @@
+\doxysection{Model.\+patterns.\+Document\+Generator Class Reference}
+\hypertarget{class_model_1_1patterns_1_1_document_generator}{}\label{class_model_1_1patterns_1_1_document_generator}\index{Model.patterns.DocumentGenerator@{Model.patterns.DocumentGenerator}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_model_1_1patterns_1_1_document_generator_a05db1356ce5da3bacc4af1dbe98822ca}{factory}} (titre, auteur, date, url, texte, nbcommentaires=None, co\+\_\+auteurs=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Génère des documents en fonction des paramètres fournis.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_model_1_1patterns_1_1_document_generator_a05db1356ce5da3bacc4af1dbe98822ca}\label{class_model_1_1patterns_1_1_document_generator_a05db1356ce5da3bacc4af1dbe98822ca} 
+\index{Model.patterns.DocumentGenerator@{Model.patterns.DocumentGenerator}!factory@{factory}}
+\index{factory@{factory}!Model.patterns.DocumentGenerator@{Model.patterns.DocumentGenerator}}
+\doxysubsubsection{\texorpdfstring{factory()}{factory()}}
+{\footnotesize\ttfamily Model.\+patterns.\+Document\+Generator.\+factory (\begin{DoxyParamCaption}\item[{}]{titre,  }\item[{}]{auteur,  }\item[{}]{date,  }\item[{}]{url,  }\item[{}]{texte,  }\item[{}]{nbcommentaires = {\ttfamily None},  }\item[{}]{co\+\_\+auteurs = {\ttfamily None} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}Méthode statique qui crée une instance de la classe ArxivDocument ou RedditDocument en fonction des paramètres fournis.
+
+Args:
+    titre : Le titre du document.
+    auteur : L'auteur du document.
+    date : La date du document.
+    url : L'URL du document.
+    texte : Le texte du document.
+    nbcommentaires : Le nombre de commentaires (uniquement pour RedditDocument).
+    co_auteurs : La liste des co-auteurs (uniquement pour ArxivDocument). Defaults to None.
+
+Returns:
+    ArxivDocument or RedditDocument: Une instance de la classe ArxivDocument ou RedditDocument.
+
+Raises:
+    AssertionError: Si aucun paramètre optionnel n'est fourni.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Model/patterns.\+py\end{DoxyCompactItemize}

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: PythonProject</title>
+<title>PythonProject: PythonProject</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">My Project
+   <div id="projectname">PythonProject
    </div>
   </td>
  </tr>
@@ -74,7 +74,39 @@ $(function() {
   <div class="headertitle"><div class="title">PythonProject</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> </p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Présentation</h1>
+<p>Ce projet est une application Python permettant d'accéder au corpus de documents.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Installation</h1>
+<p><b>Tester la classe Author :</b> </p><div class="fragment"><div class="line">Assurez-vous d&#39;avoir Python installé sur votre système.</div>
+</div><!-- fragment --><ol type="1">
+<li>Clonez ce dépôt sur votre machine locale. <div class="fragment"><div class="line">git clone https://github.com/madoutk07/PythonProject.git</div>
+</div><!-- fragment --></li>
+<li>Ouvrez le projet <div class="fragment"><div class="line">cd PythonProject</div>
+</div><!-- fragment --></li>
+<li>Création de l'environnement virtuel: <div class="fragment"><div class="line">python -m venv venv</div>
+</div><!-- fragment --></li>
+<li>Activation de l'environnement virtuel: <div class="fragment"><div class="line">venv\Scripts\activate</div>
+</div><!-- fragment --></li>
+<li>Installez les dépendances en exécutant la commande suivante: <div class="fragment"><div class="line">pip install -r requirements.txt</div>
+</div><!-- fragment --></li>
+</ol>
+<h1><a class="anchor" id="autotoc_md3"></a>
+Utilisation</h1>
+<ol type="1">
+<li>Pour visualiser la documentation, consultez le fichier <code>index.html</code> dans le dossier <code>html/index</code>.</li>
+<li>Pour lancer le projet, exécutez la commande suivante: <div class="fragment"><div class="line">python main.py</div>
+</div><!-- fragment --></li>
+<li>Pour lancer les tests, exécutez les commandes suivantes: <b>Tester la classe Author :</b> <div class="fragment"><div class="line">pytest test_Author.py</div>
+</div><!-- fragment --> <b>Tester les documents :</b> <div class="fragment"><div class="line">pytest test_Document.py</div>
+</div><!-- fragment --> <b>Tester le corpus :</b> <div class="fragment"><div class="line">pytest test_Corpus.py</div>
+</div><!-- fragment --> <b>Tester le pattern :</b> <div class="fragment"><div class="line">pytest test_Pattern.py</div>
+</div><!-- fragment --></li>
+<li>Une interface notebook est disponible dans le dossier <code>programme.ipynb</code> qui vous permettra de créer des corpus avec des mots-clés.</li>
+</ol>
+<p><b>Note:</b> <code> Sur le notebook, faites attention à séparer les mots-clés par des virgules. </code> </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

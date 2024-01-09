@@ -1,0 +1,129 @@
+\doxysection{Model.\+Corpus.\+Corpus Class Reference}
+\hypertarget{class_model_1_1_corpus_1_1_corpus}{}\label{class_model_1_1_corpus_1_1_corpus}\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_ae1b47b1a250d376749201cef487181b9}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, nom)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a0714b0c7629c553bbc9de2c18b7937ff}\label{class_model_1_1_corpus_1_1_corpus_a0714b0c7629c553bbc9de2c18b7937ff} 
+{\bfseries add\+\_\+\+Author} (self, auteur)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_aeb871449f68bf4a25327a2696b3e369f}\label{class_model_1_1_corpus_1_1_corpus_aeb871449f68bf4a25327a2696b3e369f} 
+{\bfseries add\+\_\+\+Document} (self, doc)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_a0a839381702d63ae349900a6521b00eb}{show}} (self, n\+\_\+docs=-\/1, tri="{}abc"{})
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_a8e59f6c136c325d817aa8c89dbbde999}{\+\_\+\+\_\+repr\+\_\+\+\_\+}} (self)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_a0eb5328d0204052b1e317ed1f9ee12a7}{save}} (self, filename)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_aa3b0309640e1e10d2fce21a2d70314eb}{load}} (filename)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_acf9de3494fe157f71740d365c99f79b7}\label{class_model_1_1_corpus_1_1_corpus_acf9de3494fe157f71740d365c99f79b7} 
+{\bfseries nom}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_abccf1e1db5bd64a4f4863924b08d35f8}\label{class_model_1_1_corpus_1_1_corpus_abccf1e1db5bd64a4f4863924b08d35f8} 
+{\bfseries authors}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_aed12b1e6858235f027aae1f2178db72d}\label{class_model_1_1_corpus_1_1_corpus_aed12b1e6858235f027aae1f2178db72d} 
+{\bfseries id2doc}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a9e179ffcec7cfbfc40568e12834eeaed}\label{class_model_1_1_corpus_1_1_corpus_a9e179ffcec7cfbfc40568e12834eeaed} 
+{\bfseries ndoc}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a40093ae0b12a01a520efadd673cdef56}\label{class_model_1_1_corpus_1_1_corpus_a40093ae0b12a01a520efadd673cdef56} 
+{\bfseries naut}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_ae771f6ff7dcd280d35c0dcaf47c07463}\label{class_model_1_1_corpus_1_1_corpus_ae771f6ff7dcd280d35c0dcaf47c07463} 
+str {\bfseries passages} = "{}"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Classe représentant un corpus de documents.
+
+Attributes:
+    passages : Chaîne de caractères contenant tous les passages des documents du corpus.
+    nom : Nom du corpus.
+    authors : Dictionnaire des auteurs du corpus.
+    aut2id : Dictionnaire faisant correspondre chaque auteur à un identifiant unique.
+    id2doc : Dictionnaire faisant correspondre chaque identifiant de document à un objet de document.
+    ndoc : Nombre total de documents dans le corpus.
+    naut : Nombre total d'auteurs dans le corpus.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_ae1b47b1a250d376749201cef487181b9}\label{class_model_1_1_corpus_1_1_corpus_ae1b47b1a250d376749201cef487181b9} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{nom }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialise une instance de la classe Corpus.
+
+Args:
+    nom : Nom du corpus.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a8e59f6c136c325d817aa8c89dbbde999}\label{class_model_1_1_corpus_1_1_corpus_a8e59f6c136c325d817aa8c89dbbde999} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!\_\_repr\_\_@{\_\_repr\_\_}}
+\index{\_\_repr\_\_@{\_\_repr\_\_}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{\_\_repr\_\_()}{\_\_repr\_\_()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+\_\+\+\_\+repr\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Renvoie une représentation en chaîne de caractères du corpus.
+
+Returns:
+    str: Représentation en chaîne de caractères du corpus.
+\end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_aa3b0309640e1e10d2fce21a2d70314eb}\label{class_model_1_1_corpus_1_1_corpus_aa3b0309640e1e10d2fce21a2d70314eb} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!load@{load}}
+\index{load@{load}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+load (\begin{DoxyParamCaption}\item[{}]{filename }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Charge un corpus à partir d'un fichier binaire.
+
+Args:
+    filename (str): Nom du fichier à charger.
+
+Returns:
+    Corpus: Objet de corpus chargé à partir du fichier.
+\end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_a0eb5328d0204052b1e317ed1f9ee12a7}\label{class_model_1_1_corpus_1_1_corpus_a0eb5328d0204052b1e317ed1f9ee12a7} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!save@{save}}
+\index{save@{save}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+save (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{filename }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sauvegarde le corpus dans un fichier binaire et un fichier JSON.
+
+Args:
+    filename (str): Nom du fichier de sauvegarde.
+\end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_a0a839381702d63ae349900a6521b00eb}\label{class_model_1_1_corpus_1_1_corpus_a0a839381702d63ae349900a6521b00eb} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!show@{show}}
+\index{show@{show}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+show (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{n\+\_\+docs = {\ttfamily -\/1},  }\item[{}]{tri = {\ttfamily "{}abc"{}} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Affiche les documents du corpus.
+
+Args:
+    n_docs (int, optional): Nombre de documents à afficher. -1 pour afficher tous les documents. Par défaut -1.
+    tri (str, optional): Méthode de tri des documents. "abc" pour un tri alphabétique, "123" pour un tri temporel. Par défaut "abc".
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Model/Corpus.\+py\end{DoxyCompactItemize}

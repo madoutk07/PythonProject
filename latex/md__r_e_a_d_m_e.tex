@@ -2,3 +2,79 @@
 \hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{PythonProject@{PythonProject}}
 \label{md__r_e_a_d_m_e_autotoc_md0}%
 \Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+ \hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{\texorpdfstring{Présentation}{Présentation}}\label{md__r_e_a_d_m_e_autotoc_md1}
+Ce projet est une application Python permettant d\textquotesingle{}accéder au corpus de documents.\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{Installation}{Installation}}\label{md__r_e_a_d_m_e_autotoc_md2}
+{\bfseries{Tester la classe Author \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Assurez-\/vous\ d'avoir\ Python\ installé\ sur\ votre\ système.}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item Clonez ce dépôt sur votre machine locale. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ clone\ https://github.com/madoutk07/PythonProject.git}
+
+\end{DoxyCode}
+
+\item Ouvrez le projet 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd\ PythonProject}
+
+\end{DoxyCode}
+
+\item Création de l\textquotesingle{}environnement virtuel\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python\ -\/m\ venv\ venv}
+
+\end{DoxyCode}
+
+\item Activation de l\textquotesingle{}environnement virtuel\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{venv\(\backslash\)Scripts\(\backslash\)activate}
+
+\end{DoxyCode}
+
+\item Installez les dépendances en exécutant la commande suivante\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pip\ install\ -\/r\ requirements.txt}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysection{\texorpdfstring{Utilisation}{Utilisation}}\label{md__r_e_a_d_m_e_autotoc_md3}
+
+\begin{DoxyEnumerate}
+\item Pour visualiser la documentation, consultez le fichier {\ttfamily index.\+html} dans le dossier {\ttfamily html/index}.
+\item Pour lancer le projet, exécutez la commande suivante\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python\ main.py}
+
+\end{DoxyCode}
+
+\item Pour lancer les tests, exécutez les commandes suivantes\+: {\bfseries{Tester la classe Author \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pytest\ test\_Author.py}
+
+\end{DoxyCode}
+ {\bfseries{Tester les documents \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pytest\ test\_Document.py}
+
+\end{DoxyCode}
+ {\bfseries{Tester le corpus \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pytest\ test\_Corpus.py}
+
+\end{DoxyCode}
+ {\bfseries{Tester le pattern \+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pytest\ test\_Pattern.py}
+
+\end{DoxyCode}
+
+\item Une interface notebook est disponible dans le dossier {\ttfamily programme.\+ipynb} qui vous permettra de créer des corpus avec des mots-\/clés.
+\end{DoxyEnumerate}
+
+{\bfseries{Note\+:}} {\ttfamily  Sur le notebook, faites attention à séparer les mots-\/clés par des virgules. } 
