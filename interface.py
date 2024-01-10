@@ -3,9 +3,10 @@ from dash import dcc, html
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import pandas as pd
+from moteurRecherche import RechercherAuteur, RechercherSource, RechercherTfIdf
+from Model.Corpus import Corpus
 
-from moteurRecherche import RechercherAuteur, RechercherMotCle, RechercherSource
-
+corpus = Corpus.load("Data/corpus.pkl")
 
 
 # Exemple de données
@@ -70,12 +71,25 @@ def update_search_results(n_clicks, author_query, keyword_query, genre_query):
         error_message = "Veuillez entrer au moins un critère de recherche."
         return [], {'display': 'none'}, error_message
 
-    filtered_results = [
-        result for result in data
-        if (str(author_query) in result['Auteur']) or
-           (keyword_query in result['Mot_clé']) or
-           (genre_query == result['Source'])
-    ]
+    if (keyword_query):
+        filtered_results = RechercherTfIdf(keyword_query, corpus)
+
+    if (author_query):
+        filtered_results = RechercherAuteur(keyword_query, corpus)
+    if (genre_query):
+        if (genre_query == "Reddit"):
+            genre_query = "Reddit"
+        if (genre_query == "Arxiv"):
+            genre_query = "Arxiv"
+        filtered_results = RechercherSource(genre_query, corpus)
+
+    # print(filtered_results)
+    # filtered_results = [
+    #     result for result in data
+    #     if (str(author_query) in result['Auteur']) or
+    #        (keyword_query in result['Mot_clé']) or
+    #        (genre_query == result['Source'])
+    # ]
 
     if not filtered_results:
         error_message = "Aucun résultat trouvé pour les critères de recherche spécifiés."
@@ -83,8 +97,10 @@ def update_search_results(n_clicks, author_query, keyword_query, genre_query):
 
     search_results = [
         html.Div([
-            html.H4(result['Mot_clé'], style={'margin-bottom': '5px'}),
-            html.P(f"Auteur: {result['Auteur']} | Source: {result['Source']}")
+            html.H4(result["titre"], style={'margin-bottom': '5px'}),
+            html.P(f"{result['texte']}"),
+            html.P(f"Auteur: {result['auteur']} \t| Source: {result['source']}"),
+            html.P(f"Lien: {result['url']}", style={'color': '#1a0dab'})
         ], style={'background-color': 'white', 'border': '1px solid #ddd', 'padding': '10px', 'marginBottom': '10px'})
         for result in filtered_results
     ]
