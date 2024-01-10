@@ -15,7 +15,6 @@ df = pd.DataFrame(data)
 
 app = dash.Dash(__name__)
 
-
 app.layout = html.Div(style={'backgroundColor': '#f2f2f2', 'padding': '50px', 'height': '100vh'}, children=[
     html.H1("Corpus", style={'textAlign': 'center', 'color': '#333', 'marginBottom': 20}),
     
@@ -42,12 +41,17 @@ app.layout = html.Div(style={'backgroundColor': '#f2f2f2', 'padding': '50px', 'h
     ], style={'maxWidth': '600px', 'margin': 'auto', 'borderRadius': '10px', 'boxShadow': '0px 0px 10px 0px rgba(0,0,0,0.1)'}),
 
     # Résultats de la recherche
-    html.Div(id='search_results', style={'marginTop': 20, 'fontSize': 18, 'color': '#333'}),
+    html.Div(id='search_results', style={'marginTop': 20, 'fontSize': 18, 'color': '#333', 'display': 'none'}),
+    
+    # Message d'erreur
+    html.Div(id='error_message', style={'color': 'red', 'marginTop': '10px'}),
 ])
 
 # Callback pour mettre à jour les résultats de la recherche
 @app.callback(
-    Output('search_results', 'children'),
+    [Output('search_results', 'children'),
+     Output('search_results', 'style'),
+     Output('error_message', 'children')],
     [Input('search_button', 'n_clicks')],
     [State('author_input', 'value'),
      State('keyword_input', 'value'),
@@ -57,6 +61,10 @@ def update_search_results(n_clicks, author_query, keyword_query, genre_query):
     if n_clicks == 0:
         raise PreventUpdate
 
+    if not any([author_query, keyword_query, genre_query]):
+        error_message = "Veuillez entrer au moins un critère de recherche."
+        return [], {'display': 'none'}, error_message
+
     filtered_results = [
         result for result in data
         if (str(author_query) in result['Auteur']) or
@@ -64,9 +72,22 @@ def update_search_results(n_clicks, author_query, keyword_query, genre_query):
            (genre_query == result['Source'])
     ]
 
-    search_results = [html.P(f"Mot_clé: {result['Mot_clé']} | Auteur : {result['Auteur']} | Source: {result['Source']}") for result in filtered_results]
+    if not filtered_results:
+        error_message = "Aucun résultat trouvé pour les critères de recherche spécifiés."
+        return [], {'display': 'none'}, error_message
 
-    return search_results
+    search_results = [
+        html.Div([
+            html.H4(result['Mot_clé'], style={'margin-bottom': '5px'}),
+            html.P(f"Auteur: {result['Auteur']} | Source: {result['Source']}")
+        ], style={'background-color': 'white', 'border': '1px solid #ddd', 'padding': '10px', 'marginBottom': '10px'})
+        for result in filtered_results
+    ]
+
+    style = {'marginTop': 20, 'fontSize': 18, 'color': '#333', 'display': 'block'}
+    error_message = ""
+
+    return search_results, style, error_message
 
 if __name__ == '__main__':
     app.run_server(debug=True)
