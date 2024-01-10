@@ -7,17 +7,24 @@ import datetime
 from Model.Author import Author
 from Model.patterns import DocumentGenerator
 
+def scrapper(query_terms, limit):
+    """
+    Cette fonction récupère des documents à partir de subreddits Reddit et de la plateforme ArXiv.
 
+    Args:
+        query_terms (list): Une liste de termes de recherche pour les subreddits et ArXiv.
+        limit (int): Le nombre maximum de documents à récupérer.
 
-def  scrapper(query_terms,limit):
-
+    Returns:
+        Corpus: Un objet Corpus contenant les documents récupérés.
+    """
     docs_bruts = []
     afficher_cles = False
 
     for subreddit_name in query_terms:
         print(subreddit_name)
         tempLimit = limit
-        j= 0
+        j = 0
         while tempLimit > 0:
             try:
                 reddit = praw.Reddit(client_id='lmT3q2vI0dfLlYW2M-5-sQ', client_secret='9c-0mjK4btAqm2mRIxcPCCCmTbucnQ', user_agent='projet_lyon')
@@ -48,7 +55,7 @@ def  scrapper(query_terms,limit):
                 url = f'http://export.arxiv.org/api/query?search_query=all:{"+".join(elemnt)}&start=0&max_results={tempLimit}'
                 data = urllib.request.urlopen(url)
                 data = xmltodict.parse(data.read().decode('utf-8'))
-                j= 0
+                j = 0
                 for i, entry in enumerate(data["feed"]["entry"]):
                     temp = entry["summary"].replace("\n", " ")
                     if(len(temp)<20):
@@ -59,7 +66,6 @@ def  scrapper(query_terms,limit):
                     tempLimit -= 1
             except:
                 break
-
 
     collection = []
     for nature, doc in docs_bruts:
@@ -92,7 +98,6 @@ def  scrapper(query_terms,limit):
             doc_classe= DocumentGenerator.factory(titre, auteur, date, url, texte, nbcommentaires=nbcommentaire)
             collection.append(doc_classe)
 
-
     # Création de l'index de documents
     id2doc = {}
     ndoc = 0
@@ -113,21 +118,18 @@ def  scrapper(query_terms,limit):
             authors[doc.auteur].add(doc.titre)
 
         try:
-
             for co_auteur in doc.getCo_auteurs():
-
                 if co_auteur not in authors.keys():
-                    # print("co",co_auteur)
                     naut += 1
                     temp = Author(co_auteur)
                     authors[co_auteur] = temp
                     authors[co_auteur].add(doc.titre)
                 else:
                     authors[co_auteur].add(doc.titre)
-        except :
-            # print('bug')
+        except:
             continue
             pass
+
     # Construction du corpus à partir des documents et des auteurs
     corpus = Corpus("Mon corpus")
     for doc in authors.values():
@@ -135,7 +137,7 @@ def  scrapper(query_terms,limit):
 
     for doc in id2doc.values():
         corpus.add_Document(doc)
-    return  corpus
+    return corpus
 
 
 
