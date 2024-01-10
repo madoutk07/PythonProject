@@ -26,17 +26,21 @@ Assurez-vous d'avoir Python installé sur votre système.
     ```
 
 4. Activation de l'environnement virtuel:
+
+   
     **Windows**
     ```shell
     venv\Scripts\activate  
     ```
+
+    
     **MacOS**
     ```shell
      source venv/bin/activate  
     ```
       
 
-5. Installez les dépendances en exécutant la commande suivante:
+6. Installez les dépendances en exécutant la commande suivante:
     ```shell
     pip install -r requirements.txt
     ```
