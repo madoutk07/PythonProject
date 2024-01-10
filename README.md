@@ -27,18 +27,18 @@ Assurez-vous d'avoir Python installé sur votre système.
 
 4. Activation de l'environnement virtuel:
 
-   
+
     **Windows**
     ```shell
-    venv\Scripts\activate  
+    venv\Scripts\activate
     ```
 
-    
+
     **MacOS**
     ```shell
-     source venv/bin/activate  
+     source venv/bin/activate
     ```
-      
+
 
 6. Installez les dépendances en exécutant la commande suivante:
     ```shell
@@ -70,6 +70,8 @@ Assurez-vous d'avoir Python installé sur votre système.
     ```
 
 4. Une interface notebook est disponible dans le dossier `programme.ipynb` qui vous permettra de créer des corpus avec des mots-clés.
+
+5. Une interface Dash est disponible dans le dossier `Dash_interface.py` qui vous permettra de  tester l'application.
 
 **Note:**
     ```
