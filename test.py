@@ -13,6 +13,7 @@ a.construire_mat_TF()
 # print(a.vocab)
 a.construire_mat_TFxIDF()
 print(a.mat_TFxIDF)
+print(a.mat_TF[1,1])
 # print(a.id2doc[0].texte)
 # texte = "Bonjour, je m'appellé Jean2."
 # print(texte)

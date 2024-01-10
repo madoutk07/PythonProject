@@ -9,6 +9,8 @@ def main():
     Charge le corpus à partir du fichier pickle et l'affiche.
     """
     corpusi = scrapper(["Iphone"], 100)
+    corpusi.construire_mat_TFxIDF()
+    corpusi.construire_mat_TF()
     corpusi.save("Data/corpus.pkl")
 
     del corpusi

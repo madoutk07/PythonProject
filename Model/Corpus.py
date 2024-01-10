@@ -44,6 +44,7 @@ class Corpus:
         self.vocab = {}
         self.mat_TF = None
         self.mat_TFxIDF  = None
+        self.vocabulaire = None
 
 
     def add_Author(self, auteur):
@@ -198,30 +199,36 @@ class Corpus:
         Returns:
             dict: Dictionnaire représentant le vocabulaire.
         """
-        # Initialiser le vocabulaire
-        voc = set()
-        for cle, document in self.id2doc.items():
-            # cle = document.titre
-            mots = Corpus.nettoyer_texte(document.texte)
-            mots  = mots.split(' ')
-            mots = [mot for mot in mots if mot != '']
-            voc.update(mots)
-        return voc
+        if  self.vocabulaire is not None:
+            pass
+            # return self.vocabulaire
+        else:
+            # Initialiser le vocabulaire
+            voc = set()
+            for cle, document in self.id2doc.items():
+                # cle = document.titre
+                mots = Corpus.nettoyer_texte(document.texte)
+                mots  = mots.split(' ')
+                mots = [mot for mot in mots if mot != '']
+                voc.update(mots)
+            self.vocabulaire = sorted(voc)
+            # self.vocabulaire = sorted(self.vocabulaire)
+            # return voc
 
     def construire_frequence(self):
-
-        vocabulaire = self.construire_vocabulaire()
-        frequences_mot = {mot: 0 for mot in vocabulaire}
-        frequences_document = {mot: 0 for mot in vocabulaire}
+        if  self.vocabulaire is None:
+            self.construire_vocabulaire()
+        frequences_mot = {mot: 0 for mot in self.vocabulaire}
+        frequences_document = {mot: 0 for mot in self.vocabulaire}
 
         for cle, document in self.id2doc.items():
-            tempdoc = [True for _ in vocabulaire]
+            tempdoc = [True for _ in self.vocabulaire]
             mots = Corpus.nettoyer_texte(document.texte)
             mots = mots.split(' ')
             for mot in mots:
-                if mot in vocabulaire:
+                if mot in self.vocabulaire:
 
-                    indexMot = list(vocabulaire).index(mot)
+                    indexMot = list(self.vocabulaire).index(mot)
 
                     if tempdoc[indexMot]:
                         frequences_document[mot] += 1
@@ -230,18 +237,22 @@ class Corpus:
                     if mot in frequences_mot:
                         frequences_mot[mot] += 1
 
-        final = [{'Mot': mot, 'Frequence_mot': frequences_mot[mot], 'Frequence_document': frequences_document[mot]} for mot in vocabulaire]
+        final = [{'Mot': mot, 'Frequence_mot': frequences_mot[mot], 'Frequence_document': frequences_document[mot]} for mot in self.vocabulaire]
         self.freq = pd.DataFrame(final)
 
 
     def construire_dictionnaire(self):
-        self.construire_frequence()
-        vocabulaire = self.construire_vocabulaire()
-        for index, mot in enumerate(sorted(vocabulaire)):
+        if  self.freq is None:
+            self.construire_frequence()
+        if  self.vocabulaire is None:
+            self.construire_vocabulaire()
+
+        for index, mot in enumerate((self.vocabulaire)):
             self.vocab[mot] = {
                 'identifiant': index,
                 'nombre_occurrences': self.freq.loc[self.freq['Mot'] == mot, 'Frequence_mot'].values[0],
             }
+
 
     def construire_mat_TF(self):
         """
@@ -262,13 +273,22 @@ class Corpus:
             for mot in mots:
                 if mot in self.vocab:
                     mat[cle, self.vocab[mot]['identifiant']] += 1
+            longueur = len(mots)
+            if longueur != 0:
+                mat[cle,:] = mat[cle,:] / len(mots)
+            else:
+                mat[cle,:] = 0
 
         self.mat_TF =sc.sparse.csr_matrix(mat)
 
     def construire_vocab(self):
-        self.construire_frequence()
-        vocabulaire = self.construire_vocabulaire()
-        for index, mot in enumerate(sorted(vocabulaire)):
+        if self.mat_TF == None:
+            self.construire_mat_TF()
+
+        if  self.vocabulaire is None:
+            self.construire_vocabulaire()
+
+        for index, mot in enumerate( self.vocabulaire):
             nombre_documents = self.mat_TF[:, index].nnz
             self.vocab[mot] = {
                 'identifiant': index,
@@ -279,47 +299,108 @@ class Corpus:
             }
 
 
-    def construire_tf(self, i, mot):
-        vocabulaire = self.construire_vocabulaire()
-        doc= self.id2doc[i].texte
-        nb= self.mat_TF[i, vocabulaire[mot]['identifiant']]
-        total= len(doc)
+    # def construire_tf(self, i, mot):
 
-        if total==0:
-            return 0
-        return nb/total
+    #     doc= self.id2doc[i].texte
+    #     nb= self.mat_TF[i, self.vocabulaire[mot]['identifiant']]
+    #     total= len(doc)
 
-    def construire_tf(self, i, mot):
-        vocabulaire = self.vocab
-        doc = self.id2doc[i].texte
-        index_mot = vocabulaire[mot]['identifiant']
+    #     if total==0:
+    #         return 0
+    #     return nb/total
 
-        nb = self.mat_TF[i, index_mot]
-        total = np.sum(self.mat_TF[i, :])
+    # def construire_tf(self, i, j):
 
-        if total == 0:
-            return 0
-        return nb / total
+    #     doc = self.id2doc[i].texte
+    #     nb = self.mat_TF[i, j]
+
+    #     total = len(doc)
+
+    #     if total == 0:
+    #         return 0
+    #     return nb / total
 
 
-    def construire_idf(self, mot):
-        D = self.ndoc
-        d = self.vocab[mot]['nombre_documents']
-        return log(D / (1 + d))
+    def construire_idf(self,d ):
+        return log(self.ndoc / (1 + d))
 
     def construire_mat_TFxIDF(self):
-        self.construire_mat_TF()
+        if self.mat_TF == None:
+            self.construire_mat_TF()
+
+        if  self.vocabulaire is None:
+            self.construire_vocabulaire()
         self.construire_vocab()
 
-        vocabulaire = self.vocab
-        mat_TFxIDF = np.zeros((self.ndoc, len(vocabulaire)))
+        mat_TFxIDF = np.zeros((self.ndoc, len(self.vocabulaire)))
 
-        for mot in vocabulaire:
-            index_mot = vocabulaire[mot]['identifiant']
+        for j, mot in enumerate(self.vocabulaire):
+            d = self.vocab[mot]['nombre_documents']
+
+            # index_mot = vocabulaire[mot]['identifiant']
             for i in range(self.ndoc):
-                tf = self.construire_tf(i, mot)
-                idf = self.construire_idf(mot)
-                mat_TFxIDF[i, index_mot] = tf * idf
+                # tf = self.construire_tf(i, j)
+                # tf = 1
+                idf = self.construire_idf(d)
+                # idf = 1
+                mat_TFxIDF[i, j] = self.mat_TF[i,j]* idf
 
         self.mat_TFxIDF = sc.sparse.csr_matrix(mat_TFxIDF)
-        return self.mat_TFxIDF
+
+    def vocabulaireEnVecteur(self,vocabulaire):
+        if  self.vocabulaire is None:
+            self.construire_vocabulaire()
+
+        vecteur = np.zeros(len(self.vocabulaire))
+        # print(self.vocab)
+        for mot in vocabulaire:
+            if mot in self.vocabulaire:
+                # print(self.vocab[mot]['identifiant'])
+                vecteur[self.vocab[mot]['identifiant']] = 1
+        # print(vecteur)
+        # for i  in range(len(vecteur)):
+        #     if vecteur[i] != 0:
+        #         print(i)
+
+        return vecteur
+
+
+    def calculer_similarite_TF(self, vocabulaire):
+        if self.mat_TF is None:
+            print("mat_TF is None")
+            self.construire_mat_TF()
+
+        # print(vocabulaire)
+        vecteur = self.vocabulaireEnVecteur(vocabulaire)
+
+        similarite = []
+        for i in range(self.ndoc):
+            produit_scalaire = np.dot(self.mat_TF[i,:].toarray(), vecteur)
+            # if np.all(produit_scalaire != 0):
+            similarite.append([i, produit_scalaire])
+
+        similarite.sort(key=lambda x: x[1], reverse=True)
+        # similarite = [x for x in similarite if x[1] != [0.]]
+        similarite = [item for item in similarite if item[1][0] != 0.0]
+        # print(similarite)
+        return similarite
+
+    def calculer_similarite_TFxIDF(self, vocabulaire):
+        if self.mat_TFxIDF is None:
+            print("mat_TF is None")
+            self.construire_mat_TF()
+
+        # print(vocabulaire)
+        vecteur = self.vocabulaireEnVecteur(vocabulaire)
+
+        similarite = []
+        for i in range(self.ndoc):
+            produit_scalaire = np.dot(self.mat_TFxIDF[i,:].toarray(), vecteur)
+            # if np.all(produit_scalaire != 0):
+            similarite.append([i, produit_scalaire])
+
+        similarite.sort(key=lambda x: x[1], reverse=True)
+        # similarite = [x for x in similarite if x[1] != [0.]]
+        similarite = [item for item in similarite if item[1][0] != 0.0]
+        # print(similarite)
+        return similarite
