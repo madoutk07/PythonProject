@@ -14,7 +14,6 @@ def comparerAuteur(a, b):
     """
     return SequenceMatcher(None, a, b).ratio()
 
-
 def FaireVocabulaire(phrase):
     """
     Crée un vocabulaire à partir d'une phrase donnée.
@@ -52,7 +51,7 @@ def RechercherTfIdf(phrase, corpus):
             "auteur": corpus.id2doc[id].auteur,
             "date": corpus.id2doc[id].date,
             "url": corpus.id2doc[id].url,
-            "texte": corpus.id2doc[id].texte[:100],
+            "texte": corpus.id2doc[id].texte[:500],
             "source": corpus.id2doc[id].getType(),
             "score": score
         }
@@ -79,7 +78,7 @@ def RechercherTf(phrase, corpus):
             "auteur": corpus.id2doc[id].auteur,
             "date": corpus.id2doc[id].date,
             "url": corpus.id2doc[id].url,
-            "texte": corpus.id2doc[id].texte[:100],
+            "texte": corpus.id2doc[id].texte[:500],
             "source": corpus.id2doc[id].getType(),
             "score": score
         }
@@ -109,10 +108,28 @@ def RechercherAuteur(NomAuteur, corpus):
                             "auteur": elemnt.auteur,
                             "date": elemnt.date,
                             "url": elemnt.url,
-                            "texte": elemnt.texte[:100],
+                            "texte": elemnt.texte[:500],
                             "source": elemnt.getType(),
                             "score": temp
+
                         }
                         ListeDoc.append(dic)
                         break
     return ListeDoc
+
+def RechercherSource(source, corpus):
+        ListeDoc = []
+        for cle, elemnt in corpus.id2doc.items():
+            if elemnt.getType() == source:
+                dic = {
+                            "titre": elemnt.titre,
+                            "auteur": elemnt.auteur,
+                            "date": elemnt.date,
+                            "url": elemnt.url,
+                            "texte": elemnt.texte[:500],
+                            "source": elemnt.getType()
+
+                }
+                ListeDoc.append(dic)
+
+        return ListeDoc
