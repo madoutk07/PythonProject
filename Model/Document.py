@@ -84,8 +84,8 @@ class RedditDocument(Document):
         Returns:
             str: La représentation du document Reddit.
         """
-        # return super().__str__() + f"\tNombre de commentaires : {self.getNbcommentaires()}"
-        return super().__str__() + f"\tNombre de commentaires  "
+        return super().__str__() + f"\tNombre de commentaires : {self.getNbcommentaires()}"
+        # return super().__str__() + f"\tNombre de commentaires  "
 
     def getType(self):
         """
@@ -144,5 +144,5 @@ class ArxivDocument(Document):
         Returns:
             str: La représentation du document Arxiv.
         """
-        # return super().__str__() + f"\tCo-auteurs : {self.getCo_auteurs()}"
-        return super().__str__()
+        return super().__str__() + f"\tCo-auteurs : {self.getCo_auteurs()}"
+        # return super().__str__()
