@@ -18,6 +18,42 @@
 \mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_a0eb5328d0204052b1e317ed1f9ee12a7}{save}} (self, filename)
 \item 
 \mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_aa3b0309640e1e10d2fce21a2d70314eb}{load}} (filename)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_aed64c8260f3a1f860658f5e57da990d2}{construire\+Chaine}} (self)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_ac0cc4561508b0f0f194cdaba35a5af55}{search}} (self, a\+Trouver)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_a084f4fdfb270ab84a8b3559109fced53}{concorde}} (self, a\+Trouver, nb)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_a337000d9a50548024b4aae04a90d8da4}{nettoyer\+\_\+texte}} (chaine)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_aedf7d36e99d8b1ede3b7bf1dcbaf1e7b}{construire\+\_\+vocabulaire}} (self)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a9501385d14bfab2750f219d27d8eae21}\label{class_model_1_1_corpus_1_1_corpus_a9501385d14bfab2750f219d27d8eae21} 
+{\bfseries construire\+\_\+frequence} (self)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_acab2b253cd2382e1a06f584d19b502d4}\label{class_model_1_1_corpus_1_1_corpus_acab2b253cd2382e1a06f584d19b502d4} 
+{\bfseries construire\+\_\+dictionnaire} (self)
+\item 
+\mbox{\hyperlink{class_model_1_1_corpus_1_1_corpus_aaf6ea4700ec407556d253d7b2c77a922}{construire\+\_\+mat\+\_\+\+TF}} (self)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_ad1315051e71dfccd9dc2e7c0fe54f4de}\label{class_model_1_1_corpus_1_1_corpus_ad1315051e71dfccd9dc2e7c0fe54f4de} 
+{\bfseries construire\+\_\+vocab} (self)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_ad96bac861265f8f7fd6843c13d790414}\label{class_model_1_1_corpus_1_1_corpus_ad96bac861265f8f7fd6843c13d790414} 
+{\bfseries construire\+\_\+idf} (self, d)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a7e150fa356e680ac0d55e7a9f0fab6ae}\label{class_model_1_1_corpus_1_1_corpus_a7e150fa356e680ac0d55e7a9f0fab6ae} 
+{\bfseries construire\+\_\+mat\+\_\+\+TFx\+IDF} (self)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_aff85375dfd51d3f6608766657fb631d1}\label{class_model_1_1_corpus_1_1_corpus_aff85375dfd51d3f6608766657fb631d1} 
+{\bfseries vocabulaire\+En\+Vecteur} (self, vocabulaire)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_aea5caf4cbae5cf75d5158af6ab098328}\label{class_model_1_1_corpus_1_1_corpus_aea5caf4cbae5cf75d5158af6ab098328} 
+{\bfseries calculer\+\_\+similarite\+\_\+\+TF} (self, vocabulaire)
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_ac32aa19b83e9867728f7e52370f30ada}\label{class_model_1_1_corpus_1_1_corpus_ac32aa19b83e9867728f7e52370f30ada} 
+{\bfseries calculer\+\_\+similarite\+\_\+\+TFx\+IDF} (self, vocabulaire)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -36,12 +72,24 @@
 \item 
 \Hypertarget{class_model_1_1_corpus_1_1_corpus_a40093ae0b12a01a520efadd673cdef56}\label{class_model_1_1_corpus_1_1_corpus_a40093ae0b12a01a520efadd673cdef56} 
 {\bfseries naut}
-\end{DoxyCompactItemize}
-\doxysubsubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_model_1_1_corpus_1_1_corpus_ae771f6ff7dcd280d35c0dcaf47c07463}\label{class_model_1_1_corpus_1_1_corpus_ae771f6ff7dcd280d35c0dcaf47c07463} 
-str {\bfseries passages} = "{}"{}
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a5e6dc18a551dee3298dfbcd101412a6f}\label{class_model_1_1_corpus_1_1_corpus_a5e6dc18a551dee3298dfbcd101412a6f} 
+{\bfseries passages}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_aca05150fa24ec78d515f70277e6ee164}\label{class_model_1_1_corpus_1_1_corpus_aca05150fa24ec78d515f70277e6ee164} 
+{\bfseries freq}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a85089bfa2bace33231ef0c740b61f6b0}\label{class_model_1_1_corpus_1_1_corpus_a85089bfa2bace33231ef0c740b61f6b0} 
+{\bfseries vocab}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a51f89b924d4c424333284b09ff207c9b}\label{class_model_1_1_corpus_1_1_corpus_a51f89b924d4c424333284b09ff207c9b} 
+{\bfseries mat\+\_\+\+TF}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a94a4319c50ddbfccf663bfbb976967aa}\label{class_model_1_1_corpus_1_1_corpus_a94a4319c50ddbfccf663bfbb976967aa} 
+{\bfseries mat\+\_\+\+TFx\+IDF}
+\item 
+\Hypertarget{class_model_1_1_corpus_1_1_corpus_a2d7477f796f0adc4ebc2618ebd563ae9}\label{class_model_1_1_corpus_1_1_corpus_a2d7477f796f0adc4ebc2618ebd563ae9} 
+{\bfseries vocabulaire}
 \end{DoxyCompactItemize}
 
 
@@ -85,6 +133,54 @@ Args:
 Returns:
     str: Représentation en chaîne de caractères du corpus.
 \end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_a084f4fdfb270ab84a8b3559109fced53}\label{class_model_1_1_corpus_1_1_corpus_a084f4fdfb270ab84a8b3559109fced53} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!concorde@{concorde}}
+\index{concorde@{concorde}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{concorde()}{concorde()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+concorde (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a\+Trouver,  }\item[{}]{nb }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Renvoie un DataFrame contenant les contextes gauche, le motif trouvé et les contextes droits pour un motif donné.
+
+Args:
+    aTrouver (str): Motif à rechercher.
+    nb (int): Nombre de caractères à inclure dans les contextes gauche et droit.
+
+Returns:
+    pd.DataFrame: DataFrame contenant les contextes gauche, le motif trouvé et les contextes droits.
+\end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_aaf6ea4700ec407556d253d7b2c77a922}\label{class_model_1_1_corpus_1_1_corpus_aaf6ea4700ec407556d253d7b2c77a922} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!construire\_mat\_TF@{construire\_mat\_TF}}
+\index{construire\_mat\_TF@{construire\_mat\_TF}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{construire\_mat\_TF()}{construire\_mat\_TF()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+construire\+\_\+mat\+\_\+\+TF (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construit une matrice de termes-fréquences à partir du texte de chaque document.
+
+Returns:
+     self : Matrice de termes-fréquences.
+\end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_aedf7d36e99d8b1ede3b7bf1dcbaf1e7b}\label{class_model_1_1_corpus_1_1_corpus_aedf7d36e99d8b1ede3b7bf1dcbaf1e7b} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!construire\_vocabulaire@{construire\_vocabulaire}}
+\index{construire\_vocabulaire@{construire\_vocabulaire}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{construire\_vocabulaire()}{construire\_vocabulaire()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+construire\+\_\+vocabulaire (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construit un vocabulaire à partir du texte de chaque document.
+
+Returns:
+    dict: Dictionnaire représentant le vocabulaire.
+\end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_aed64c8260f3a1f860658f5e57da990d2}\label{class_model_1_1_corpus_1_1_corpus_aed64c8260f3a1f860658f5e57da990d2} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!construireChaine@{construireChaine}}
+\index{construireChaine@{construireChaine}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{construireChaine()}{construireChaine()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+construire\+Chaine (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construit une chaîne de caractères contenant tous les passages des documents du corpus.
+
+Returns:
+    str: Chaîne de caractères contenant tous les passages des documents du corpus.
+\end{DoxyVerb}
  \Hypertarget{class_model_1_1_corpus_1_1_corpus_aa3b0309640e1e10d2fce21a2d70314eb}\label{class_model_1_1_corpus_1_1_corpus_aa3b0309640e1e10d2fce21a2d70314eb} 
 \index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!load@{load}}
 \index{load@{load}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
@@ -99,6 +195,20 @@ Args:
 Returns:
     Corpus: Objet de corpus chargé à partir du fichier.
 \end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_a337000d9a50548024b4aae04a90d8da4}\label{class_model_1_1_corpus_1_1_corpus_a337000d9a50548024b4aae04a90d8da4} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!nettoyer\_texte@{nettoyer\_texte}}
+\index{nettoyer\_texte@{nettoyer\_texte}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{nettoyer\_texte()}{nettoyer\_texte()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+nettoyer\+\_\+texte (\begin{DoxyParamCaption}\item[{}]{chaine }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Nettoie une chaîne de caractères en la mettant en minuscules, en supprimant les caractères spéciaux, les chiffres, les tabulations et les retours à la ligne.
+
+Args:
+    chaine (str): Chaîne de caractères à nettoyer.
+
+Returns:
+    str: Chaîne de caractères nettoyée.
+\end{DoxyVerb}
  \Hypertarget{class_model_1_1_corpus_1_1_corpus_a0eb5328d0204052b1e317ed1f9ee12a7}\label{class_model_1_1_corpus_1_1_corpus_a0eb5328d0204052b1e317ed1f9ee12a7} 
 \index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!save@{save}}
 \index{save@{save}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
@@ -109,6 +219,20 @@ Returns:
 
 Args:
     filename (str): Nom du fichier de sauvegarde.
+\end{DoxyVerb}
+ \Hypertarget{class_model_1_1_corpus_1_1_corpus_ac0cc4561508b0f0f194cdaba35a5af55}\label{class_model_1_1_corpus_1_1_corpus_ac0cc4561508b0f0f194cdaba35a5af55} 
+\index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!search@{search}}
+\index{search@{search}!Model.Corpus.Corpus@{Model.Corpus.Corpus}}
+\doxysubsubsection{\texorpdfstring{search()}{search()}}
+{\footnotesize\ttfamily Model.\+Corpus.\+Corpus.\+search (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a\+Trouver }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Recherche un motif dans la chaîne de caractères du corpus.
+
+Args:
+    aTrouver (str): Motif à rechercher.
+
+Returns:
+    re.MatchIterator: Itérateur contenant les correspondances trouvées.
 \end{DoxyVerb}
  \Hypertarget{class_model_1_1_corpus_1_1_corpus_a0a839381702d63ae349900a6521b00eb}\label{class_model_1_1_corpus_1_1_corpus_a0a839381702d63ae349900a6521b00eb} 
 \index{Model.Corpus.Corpus@{Model.Corpus.Corpus}!show@{show}}
