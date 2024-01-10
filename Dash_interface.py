@@ -75,7 +75,7 @@ def update_search_results(n_clicks, author_query, keyword_query, genre_query):
         filtered_results = RechercherTfIdf(keyword_query, corpus)
 
     if (author_query):
-        filtered_results = RechercherAuteur(keyword_query, corpus)
+        filtered_results = RechercherAuteur(author_query, corpus)
     if (genre_query):
         if (genre_query == "Reddit"):
             genre_query = "Reddit"
@@ -112,4 +112,4 @@ def update_search_results(n_clicks, author_query, keyword_query, genre_query):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
