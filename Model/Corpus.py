@@ -7,6 +7,8 @@ from Model.patterns import singleton
 import pandas as pd
 from unidecode import unidecode
 import  scipy as sc
+import numpy as np
+from math import log
 
 # @singleton
 class Corpus:
@@ -41,6 +43,7 @@ class Corpus:
         self.freq = None
         self.vocab = {}
         self.mat_TF = None
+        self.mat_TFxIDF  = None
 
 
     def add_Author(self, auteur):
@@ -205,7 +208,7 @@ class Corpus:
             voc.update(mots)
         return voc
 
-    def stats(self):
+    def construire_frequence(self):
 
         vocabulaire = self.construire_vocabulaire()
         frequences_mot = {mot: 0 for mot in vocabulaire}
@@ -232,7 +235,7 @@ class Corpus:
 
 
     def construire_dictionnaire(self):
-        self.stats()
+        self.construire_frequence()
         vocabulaire = self.construire_vocabulaire()
         for index, mot in enumerate(sorted(vocabulaire)):
             self.vocab[mot] = {
@@ -245,14 +248,13 @@ class Corpus:
         Construit une matrice de termes-fréquences à partir du texte de chaque document.
 
         Returns:
-            scipy.sparse.csr_matrix: Matrice de termes-fréquences.
+             self : Matrice de termes-fréquences.
         """
         if self.vocab == {}:
             self.construire_dictionnaire()
 
 
-        mat = sc.sparse.csr_matrix((self.ndoc, len(self.vocab)))
-
+        mat = np.zeros((self.ndoc, len(self.vocab)))
         for cle, document in self.id2doc.items():
 
             mots = Corpus.nettoyer_texte(document.texte)
@@ -261,5 +263,63 @@ class Corpus:
                 if mot in self.vocab:
                     mat[cle, self.vocab[mot]['identifiant']] += 1
 
-        self.mat_TF = mat
-        # return self.mat_TF
+        self.mat_TF =sc.sparse.csr_matrix(mat)
+
+    def construire_vocab(self):
+        self.construire_frequence()
+        vocabulaire = self.construire_vocabulaire()
+        for index, mot in enumerate(sorted(vocabulaire)):
+            nombre_documents = self.mat_TF[:, index].nnz
+            self.vocab[mot] = {
+                'identifiant': index,
+                'nombre_occurrences2': self.freq.loc[self.freq['Mot'] == mot, 'Frequence_mot'].values[0],
+                'nombre_occurrences': np.sum(self.mat_TF[:, index]),
+                'nombre_documents': nombre_documents
+
+            }
+
+
+    def construire_tf(self, i, mot):
+        vocabulaire = self.construire_vocabulaire()
+        doc= self.id2doc[i].texte
+        nb= self.mat_TF[i, vocabulaire[mot]['identifiant']]
+        total= len(doc)
+
+        if total==0:
+            return 0
+        return nb/total
+
+    def construire_tf(self, i, mot):
+        vocabulaire = self.vocab
+        doc = self.id2doc[i].texte
+        index_mot = vocabulaire[mot]['identifiant']
+
+        nb = self.mat_TF[i, index_mot]
+        total = np.sum(self.mat_TF[i, :])
+
+        if total == 0:
+            return 0
+        return nb / total
+
+
+    def construire_idf(self, mot):
+        D = self.ndoc
+        d = self.vocab[mot]['nombre_documents']
+        return log(D / (1 + d))
+
+    def construire_mat_TFxIDF(self):
+        self.construire_mat_TF()
+        self.construire_vocab()
+
+        vocabulaire = self.vocab
+        mat_TFxIDF = np.zeros((self.ndoc, len(vocabulaire)))
+
+        for mot in vocabulaire:
+            index_mot = vocabulaire[mot]['identifiant']
+            for i in range(self.ndoc):
+                tf = self.construire_tf(i, mot)
+                idf = self.construire_idf(mot)
+                mat_TFxIDF[i, index_mot] = tf * idf
+
+        self.mat_TFxIDF = sc.sparse.csr_matrix(mat_TFxIDF)
+        return self.mat_TFxIDF
